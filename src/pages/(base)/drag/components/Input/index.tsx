@@ -8,7 +8,7 @@ export const InputComponent: ComponentConfig = {
   icon: '📝',
   defaultSize: {
     widthRatio: 0.5,
-    heightRows: 2,
+    heightRows: 3,
   },
   defaultWidth: '100%',
   defaultHeight: '100%',

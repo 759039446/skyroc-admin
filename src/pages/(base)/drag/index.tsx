@@ -1,12 +1,13 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Button, Space, Typography, Form, Divider } from 'antd';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { Card, Button, Space, Typography, Form, Divider, Drawer } from 'antd';
+import { LeftOutlined, RightOutlined, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 import GridLayout from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 import './styles.css';
 import { COMPONENT_REGISTRY, getComponentConfig, type CanvasComponent } from './components';
+import Preview from './preview';
 
 const { Text } = Typography;
 
@@ -26,7 +27,12 @@ const Drag = () => {
   
   // 侧边栏折叠状态
   const [leftPanelCollapsed, setLeftPanelCollapsed] = useState(false);
-  const [rightPanelCollapsed, setRightPanelCollapsed] = useState(false);
+  
+  // 预览模式状态
+  const [previewVisible, setPreviewVisible] = useState(false);
+  
+  // 属性配置抽屉状态
+  const [drawerVisible, setDrawerVisible] = useState(false);
 
   // 历史记录管理
   const [history, setHistory] = useState<CanvasComponent[][]>([[]]); // 历史记录栈
@@ -84,18 +90,20 @@ const Drag = () => {
     });
   }, [saveHistory]);
 
-  // 当选中组件变化时，更新表单值
+  // 选中组件（单击）
   const handleSelectComponent = useCallback((componentId: string) => {
+    setSelectedComponent(componentId);
+  }, []);
+  
+  // 打开属性配置（双击）
+  const handleOpenPropertyDrawer = useCallback((componentId: string) => {
     setSelectedComponent(componentId);
     const component = canvasComponents.find(c => c.i === componentId);
     if (component) {
       form.setFieldsValue(component.props);
+      setDrawerVisible(true);
     }
-    // 选中组件时自动展开右侧属性面板
-    if (rightPanelCollapsed) {
-      setRightPanelCollapsed(false);
-    }
-  }, [canvasComponents, form, rightPanelCollapsed]);
+  }, [canvasComponents, form]);
 
   // 处理布局变化（实时更新）
   const handleLayoutChange = useCallback((layout: any[]) => {
@@ -180,6 +188,7 @@ const Drag = () => {
     });
     if (selectedComponent === componentId) {
       setSelectedComponent(null);
+      setDrawerVisible(false);
     }
   }, [selectedComponent, saveHistory]);
 
@@ -189,6 +198,7 @@ const Drag = () => {
     setCanvasComponents(updated);
     saveHistory(updated);
     setSelectedComponent(null);
+    setDrawerVisible(false);
   }, [saveHistory]);
 
   // 开始拖拽组件库中的组件
@@ -217,14 +227,7 @@ const Drag = () => {
 
   // 渲染属性配置表单
   const renderPropertyPanel = () => {
-    // 如果没有选中组件，显示提示信息
-    if (!currentComponent) {
-      return (
-        <div className="drag-empty-state">
-          <Text type="secondary">请在画布上点击选择一个组件</Text>
-        </div>
-      );
-    }
+    if (!currentComponent) return null;
 
     const { type, props } = currentComponent;
     const componentConfig = getComponentConfig(type);
@@ -299,6 +302,15 @@ const Drag = () => {
               <Text type="secondary">组件数: {canvasComponents.length}</Text>
               <Button 
                 size="small"
+                icon={<EyeOutlined />}
+                onClick={() => setPreviewVisible(true)}
+                type="primary"
+                title="预览页面"
+              >
+                预览
+              </Button>
+              <Button 
+                size="small"
                 icon={<span>↶</span>}
                 onClick={handleUndo}
                 disabled={historyIndex <= 0}
@@ -359,21 +371,20 @@ const Drag = () => {
                           selectedComponent === component.i ? 'selected' : ''
                         }`}
                         onClick={() => handleSelectComponent(component.i)}
+                        onDoubleClick={() => handleOpenPropertyDrawer(component.i)}
                       >
                         {/* 拖拽控制栏 - 悬停时显示 */}
                         <div className="drag-handle drag-item-toolbar">
                           <span className="drag-item-label">
                             {getComponentConfig(component.type)?.label}
                           </span>
-                          <div 
+                          <DeleteOutlined 
                             className="drag-item-remove"
                             onClick={(e) => {
                               e.stopPropagation();
                               handleRemoveComponent(component.i);
                             }}
-                          >
-                            ✕
-                          </div>
+                          />
                         </div>
                         {/* 组件内容区域 */}
                         <div className="drag-item-content">
@@ -389,27 +400,42 @@ const Drag = () => {
         </Card>
       </div>
 
-      {/* 右侧属性配置面板 - 只在选中组件时显示 */}
-      {currentComponent && (
-        <div className={`drag-right-panel ${rightPanelCollapsed ? 'collapsed' : ''}`}>
-          <Card 
-            title="属性配置" 
-            className="drag-panel-card"
-            bodyStyle={{ padding: '12px' }}
-            extra={
-              <Button 
-                type="text" 
-                size="small" 
-                icon={rightPanelCollapsed ? <LeftOutlined /> : <RightOutlined />}
-                onClick={() => setRightPanelCollapsed(!rightPanelCollapsed)}
-                title={rightPanelCollapsed ? '展开属性面板' : '收起属性面板'}
-              />
-            }
-          >
-            {renderPropertyPanel()}
-          </Card>
-        </div>
-      )}
+      {/* 属性配置抽屉 */}
+      <Drawer
+        title={
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span>属性配置</span>
+            {currentComponent && (
+              <Text type="secondary" style={{ fontSize: '12px' }}>
+                {getComponentConfig(currentComponent.type)?.label}
+              </Text>
+            )}
+          </div>
+        }
+        placement="right"
+        width={400}
+        open={drawerVisible && !!currentComponent}
+        onClose={() => setDrawerVisible(false)}
+        styles={{
+          body: {
+            padding: '16px',
+          },
+        }}
+      >
+        {renderPropertyPanel()}
+      </Drawer>
+      
+      {/* 预览弹窗 */}
+      <Preview
+        open={previewVisible}
+        onClose={() => setPreviewVisible(false)}
+        components={canvasComponents}
+        canvasWidth={GRID_CONFIG.width}
+        gridConfig={{
+          cols: GRID_CONFIG.cols,
+          rowHeight: GRID_CONFIG.rowHeight,
+        }}
+      />
     </div>
   );
 };

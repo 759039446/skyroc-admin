@@ -37,7 +37,15 @@ export const generatedRoutes: ElegantConstRoute[] = [
             matchedFiles: [null, '/src/pages/(base)/drag/index.tsx', null, null],
             name: '(base)_drag',
             path: '/drag',
-            handle: { i18nKey: 'route.(base)_drag', title: '(base)_drag' }
+            handle: { i18nKey: 'route.(base)_drag', title: '(base)_drag' },
+            children: [
+              {
+                matchedFiles: [null, '/src/pages/(base)/drag/preview/index.tsx', null, null],
+                name: '(base)_drag_preview',
+                path: '/drag/preview',
+                handle: { i18nKey: 'route.(base)_drag_preview', title: '(base)_drag_preview' }
+              }
+            ]
           },
           {
             matchedFiles: [null, '/src/pages/(base)/function/index.tsx', null, null],

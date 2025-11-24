@@ -1,0 +1,94 @@
+/* ========================================
+   预览页面样式
+   ======================================== */
+
+/* 预览容器 - 居中显示 */
+.preview-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px;
+  background: #f0f2f5;
+  min-height: 400px;
+}
+
+/* 预览画布 - 固定宽度 */
+.preview-canvas {
+  position: relative;
+  min-height: 400px;
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+}
+
+/* 空状态提示 */
+.preview-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  color: #999999;
+  font-size: 16px;
+  border: 2px dashed #d9d9d9;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+/* 预览布局容器 */
+.preview-layout {
+  position: relative;
+}
+
+/* 预览网格项 */
+.preview-grid-item {
+  position: relative;
+  background: #ffffff;
+  border-radius: 8px;
+  border: 2px solid #e8e8e8;
+  overflow: visible;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 预览组件内容 */
+.preview-item-content {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 6px;
+  pointer-events: auto;
+}
+
+/* ========================================
+   全屏模式样式
+   ======================================== */
+
+/* 全屏模态框 */
+.preview-modal-fullscreen .ant-modal {
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100vh;
+}
+
+.preview-modal-fullscreen .ant-modal-content {
+  height: 100vh;
+  border-radius: 0;
+}
+
+.preview-modal-fullscreen .ant-modal-body {
+  height: calc(100vh - 55px);
+}
+
+/* 全屏时的预览容器 */
+.preview-modal-fullscreen .preview-container {
+  min-height: calc(100vh - 110px);
+  padding: 20px 24px;
+}
+
+/* 全屏时的画布 */
+.preview-modal-fullscreen .preview-canvas {
+  min-height: calc(100vh - 150px);
+}

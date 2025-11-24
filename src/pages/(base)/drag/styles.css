@@ -9,6 +9,9 @@
   gap: 16px;
   background: #f5f7fa;
   padding: 16px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  min-width: min-content;
 }
 
 /* ========================================
@@ -30,25 +33,6 @@
 
 .drag-left-panel.collapsed .drag-component-list,
 .drag-left-panel.collapsed .ant-card-body {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* 右侧属性配置面板 */
-.drag-right-panel {
-  width: 320px;
-  height: 100%;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
-  animation: slideInRight 0.3s ease-out;
-}
-
-/* 右侧面板折叠状态 */
-.drag-right-panel.collapsed {
-  width: 48px;
-}
-
-.drag-right-panel.collapsed .ant-card-body {
   opacity: 0;
   pointer-events: none;
 }
@@ -118,7 +102,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-width: 0;
+  min-width: 1248px; /* 1200px画布 + 左右padding 24px*2 */
 }
 
 /* 画布卡片 */
@@ -135,7 +119,8 @@
   height: 100%;
   background: #f0f2f5;
   padding: 24px;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -168,15 +153,6 @@
   background: #f0f8ff;
 }
 
-/* 空状态提示（属性面板） */
-.drag-empty-state {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: 40px 20px;
-  text-align: center;
-}
 
 /* ========================================
    网格组件样式
@@ -251,7 +227,7 @@
 /* 组件工具栏 - 悬停时显示在组件外部上方 */
 .drag-item-toolbar {
   position: absolute;
-  top: -24px;
+  top: -20px;
   left: 0;
   right: 0;
   height: 24px;
@@ -280,19 +256,22 @@
   user-select: none;
 }
 
-/* 删除按钮 */
+/* 删除按钮（图标） */
 .drag-item-remove {
   color: #999999;
-  font-size: 13px;
-  padding: 2px 4px;
+  font-size: 14px;
+  padding: 4px;
   cursor: pointer;
-  transition: color 0.2s ease;
-  line-height: 1;
+  transition: all 0.2s ease;
   user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .drag-item-remove:hover {
   color: #ff4d4f;
+  transform: scale(1.15);
 }
 
 /* 组件内容区域 - 占满整个容器 */
@@ -377,49 +356,6 @@
    动画效果
    ======================================== */
 
-/* 右侧面板滑入动画 */
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* 组件添加动画 */
-@keyframes fadeInScale {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* 脉冲动画（用于强调） */
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
-
-/* 淡入动画 */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
 
 /* ========================================
    响应式适配
@@ -428,10 +364,6 @@
 @media (max-width: 1600px) {
   .drag-left-panel {
     width: 240px;
-  }
-  
-  .drag-right-panel {
-    width: 280px;
   }
 }
 
