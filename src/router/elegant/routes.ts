@@ -34,6 +34,12 @@ export const generatedRoutes: ElegantConstRoute[] = [
             }
           },
           {
+            matchedFiles: [null, '/src/pages/(base)/drag/index.tsx', null, null],
+            name: '(base)_drag',
+            path: '/drag',
+            handle: { i18nKey: 'route.(base)_drag', title: '(base)_drag' }
+          },
+          {
             matchedFiles: [null, '/src/pages/(base)/function/index.tsx', null, null],
             name: '(base)_function',
             path: '/function',
@@ -188,7 +194,7 @@ export const generatedRoutes: ElegantConstRoute[] = [
                   title: 'Manage Menu',
                   icon: 'material-symbols:route',
                   order: 3,
-                  roles: ['R_SUPER'],
+                  roles: ['R_SUPER']
                 }
               },
               {

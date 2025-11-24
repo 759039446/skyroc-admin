@@ -1,0 +1,447 @@
+/* ========================================
+   拖拽编辑器 - 主容器布局样式
+   ======================================== */
+
+/* 主容器 - 使用 Flexbox 布局 */
+.drag-container {
+  display: flex;
+  height: 100%;
+  gap: 16px;
+  background: #f5f7fa;
+  padding: 16px;
+}
+
+/* ========================================
+   侧边栏面板样式（左右两侧）
+   ======================================== */
+
+/* 左侧组件库面板 */
+.drag-left-panel {
+  width: 280px;
+  height: 100%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+/* 左侧面板折叠状态 */
+.drag-left-panel.collapsed {
+  width: 48px;
+}
+
+.drag-left-panel.collapsed .drag-component-list,
+.drag-left-panel.collapsed .ant-card-body {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 右侧属性配置面板 */
+.drag-right-panel {
+  width: 320px;
+  height: 100%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  animation: slideInRight 0.3s ease-out;
+}
+
+/* 右侧面板折叠状态 */
+.drag-right-panel.collapsed {
+  width: 48px;
+}
+
+.drag-right-panel.collapsed .ant-card-body {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 面板卡片通用样式 */
+.drag-panel-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.drag-panel-card .ant-card-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: opacity 0.3s ease;
+}
+
+/* ========================================
+   组件库列表样式
+   ======================================== */
+
+.drag-component-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 组件库项 */
+.drag-component-item {
+  cursor: move;
+  transition: all 0.2s ease;
+  border-radius: 6px;
+  border: 1px solid #e8e8e8;
+}
+
+.drag-component-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(24, 144, 255, 0.15);
+  border-color: #1890ff;
+}
+
+.drag-component-item:active {
+  transform: scale(0.98);
+}
+
+.drag-component-item-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.drag-component-icon {
+  font-size: 20px;
+  display: inline-block;
+}
+
+/* ========================================
+   画布区域样式
+   ======================================== */
+
+/* 画布外层容器 */
+.drag-canvas-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* 画布卡片 */
+.drag-canvas-card {
+  height: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+}
+
+/* 画布容器 - 居中显示固定宽度的画布 */
+.drag-canvas-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #f0f2f5;
+  padding: 24px;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* 画布 - 固定宽度，居中显示 */
+.drag-canvas {
+  position: relative;
+  min-height: calc(100vh - 250px);
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+  padding: 30px 20px 20px 20px;
+}
+
+/* 空画布提示 */
+.drag-empty-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  border: 2px dashed #d9d9d9;
+  border-radius: 8px;
+  background: #fafafa;
+  transition: all 0.3s ease;
+}
+
+.drag-empty-canvas:hover {
+  border-color: #1890ff;
+  background: #f0f8ff;
+}
+
+/* 空状态提示（属性面板） */
+.drag-empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* ========================================
+   网格组件样式
+   ======================================== */
+
+/* GridLayout 容器 */
+.react-grid-layout {
+  position: relative;
+  transition: height 200ms ease;
+}
+
+/* 网格项基础样式 */
+.react-grid-item {
+  transition: all 200ms ease;
+  transition-property: left, top, width, height;
+}
+
+.react-grid-item.resizing {
+  transition: none;
+  z-index: 100;
+  will-change: width, height;
+}
+
+.react-grid-item.react-draggable-dragging {
+  transition: none;
+  z-index: 100;
+  will-change: transform;
+  opacity: 0.8;
+}
+
+.react-grid-item.dropping {
+  visibility: hidden;
+}
+
+/* 拖拽占位符 */
+.react-grid-item.react-grid-placeholder {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  opacity: 0.2;
+  transition-duration: 100ms;
+  z-index: 2;
+  border-radius: 8px;
+  user-select: none;
+}
+
+/* ========================================
+   画布上的组件项样式
+   ======================================== */
+
+/* 组件项容器 */
+.drag-grid-item {
+  position: relative;
+  background: #ffffff;
+  border-radius: 8px;
+  border: 2px solid #e8e8e8;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  overflow: visible;
+}
+
+.drag-grid-item:hover {
+  border-color: #1890ff;
+  box-shadow: 0 4px 16px rgba(24, 144, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* 选中状态 */
+.drag-grid-item.selected {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 3px rgba(24, 144, 255, 0.15);
+}
+
+/* 组件工具栏 - 悬停时显示在组件外部上方 */
+.drag-item-toolbar {
+  position: absolute;
+  top: -24px;
+  left: 0;
+  right: 0;
+  height: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4px;
+  background: transparent;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+  cursor: move;
+  pointer-events: none;
+}
+
+.drag-grid-item:hover .drag-item-toolbar {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 组件标签 */
+.drag-item-label {
+  font-size: 11px;
+  color: #1890ff;
+  font-weight: 500;
+  user-select: none;
+}
+
+/* 删除按钮 */
+.drag-item-remove {
+  color: #999999;
+  font-size: 13px;
+  padding: 2px 4px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  line-height: 1;
+  user-select: none;
+}
+
+.drag-item-remove:hover {
+  color: #ff4d4f;
+}
+
+/* 组件内容区域 - 占满整个容器 */
+.drag-item-content {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+/* ========================================
+   调整大小手柄样式
+   ======================================== */
+
+.react-resizable-handle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+}
+
+.react-resizable-handle-se {
+  bottom: 0;
+  right: 0;
+  cursor: se-resize;
+}
+
+.react-resizable-handle-se::after {
+  content: "";
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid #1890ff;
+  border-bottom: 2px solid #1890ff;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.drag-grid-item:hover .react-resizable-handle-se::after {
+  opacity: 1;
+}
+
+/* ========================================
+   自定义滚动条样式
+   ======================================== */
+
+/* Firefox */
+.drag-canvas-container,
+.drag-panel-card .ant-card-body {
+  scrollbar-width: thin;
+  scrollbar-color: #bfbfbf #f0f0f0;
+}
+
+/* Webkit 浏览器（Chrome、Safari、Edge） */
+.drag-canvas-container::-webkit-scrollbar,
+.drag-panel-card .ant-card-body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.drag-canvas-container::-webkit-scrollbar-track,
+.drag-panel-card .ant-card-body::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
+.drag-canvas-container::-webkit-scrollbar-thumb,
+.drag-panel-card .ant-card-body::-webkit-scrollbar-thumb {
+  background: #bfbfbf;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.drag-canvas-container::-webkit-scrollbar-thumb:hover,
+.drag-panel-card .ant-card-body::-webkit-scrollbar-thumb:hover {
+  background: #999999;
+}
+
+/* ========================================
+   动画效果
+   ======================================== */
+
+/* 右侧面板滑入动画 */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 组件添加动画 */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 脉冲动画（用于强调） */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* 淡入动画 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ========================================
+   响应式适配
+   ======================================== */
+
+@media (max-width: 1600px) {
+  .drag-left-panel {
+    width: 240px;
+  }
+  
+  .drag-right-panel {
+    width: 280px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .drag-container {
+    gap: 12px;
+    padding: 12px;
+  }
+  
+  .drag-canvas-container {
+    padding: 16px;
+  }
+}
