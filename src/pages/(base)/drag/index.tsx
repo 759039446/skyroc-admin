@@ -7,7 +7,7 @@ import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 import './styles.css';
 import { COMPONENT_REGISTRY, getComponentConfig, type CanvasComponent } from './components';
-import Preview from './preview';
+import Preview from './modules/preview';
 
 const { Text } = Typography;
 
