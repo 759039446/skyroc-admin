@@ -6,6 +6,8 @@ export const InputComponent: ComponentConfig = {
   type: 'Input',
   label: '输入框',
   icon: '📝',
+  category: '基础组件',
+  order: 2,
   defaultSize: {
     widthRatio: 0.5,
     heightRows: 3,

@@ -6,6 +6,8 @@ export const ImageComponent: ComponentConfig = {
   type: 'Image',
   label: '图片',
   icon: '🖼️',
+  category: '展示组件',
+  order: 2,
   defaultSize: {
     widthRatio: 0.33,
     heightRows: 6,

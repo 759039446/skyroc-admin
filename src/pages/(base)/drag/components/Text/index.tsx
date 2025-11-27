@@ -8,6 +8,8 @@ export const TextComponent: ComponentConfig = {
   type: 'Text',
   label: '文本',
   icon: '📄',
+  category: '基础组件',
+  order: 3,
   defaultSize: {
     widthRatio: 0.33,
     heightRows: 3,

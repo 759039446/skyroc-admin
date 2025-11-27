@@ -10,6 +10,12 @@ export interface ComponentConfig {
   label: string;
   // 组件图标（emoji）
   icon: string;
+  // 所属分组
+  category: string;
+  // 排序（同分组内的排序，数字越小越靠前）
+  order: number;
+  // 预览图片（可选，如果没有图片则使用 icon）
+  previewImage?: string;
   // 默认尺寸配置
   defaultSize: {
     widthRatio: number;  // 宽度占总列数的比例 (0-1)

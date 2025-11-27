@@ -6,6 +6,8 @@ export const DivComponent: ComponentConfig = {
   type: 'Div',
   label: '空白容器',
   icon: '⬜',
+  category: '容器组件',
+  order: 2,
   defaultSize: {
     widthRatio: 0.25,
     heightRows: 4,

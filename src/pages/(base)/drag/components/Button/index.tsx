@@ -6,6 +6,8 @@ export const ButtonComponent: ComponentConfig = {
   type: 'Button',
   label: '按钮',
   icon: '🔘',
+  category: '基础组件',
+  order: 1,
   defaultSize: {
     widthRatio: 0.25,
     heightRows: 3,

@@ -6,6 +6,8 @@ export const TagComponent: ComponentConfig = {
   type: 'Tag',
   label: '标签',
   icon: '🏷️',
+  category: '展示组件',
+  order: 1,
   defaultSize: {
     widthRatio: 0.33,
     heightRows: 3,

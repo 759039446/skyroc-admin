@@ -6,6 +6,8 @@ export const CardComponent: ComponentConfig = {
   type: 'Card',
   label: '卡片',
   icon: '🎴',
+  category: '容器组件',
+  order: 1,
   defaultSize: {
     widthRatio: 0.5,
     heightRows: 6,
@@ -22,11 +24,13 @@ export const CardComponent: ComponentConfig = {
         {...props}
         title={props.title || '卡片标题'}
         style={props.style}
-        bodyStyle={{
-          height: 'calc(100% - 57px)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+        styles={{
+          body: {
+            height: 'calc(100% - 57px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          },
         }}
       >
         {props.content || '卡片内容'}
