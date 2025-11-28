@@ -1,5 +1,5 @@
 import { Card, Button, Space, Typography } from 'antd';
-import { EyeOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EyeOutlined, DeleteOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
 import GridLayout from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
@@ -18,6 +18,8 @@ interface CanvasProps {
   };
   historyIndex: number;
   historyLength: number;
+  libraryVisible: boolean;
+  drawerVisible: boolean;
   onDrop: (e: React.DragEvent) => void;
   onDragOver: (e: React.DragEvent) => void;
   onLayoutChange: (layout: any[]) => void;
@@ -29,6 +31,8 @@ interface CanvasProps {
   onUndo: () => void;
   onRedo: () => void;
   onPreview: () => void;
+  onToggleLibrary: () => void;
+  onToggleDrawer: () => void;
 }
 
 const Canvas: React.FC<CanvasProps> = ({
@@ -37,6 +41,8 @@ const Canvas: React.FC<CanvasProps> = ({
   gridConfig,
   historyIndex,
   historyLength,
+  libraryVisible,
+  drawerVisible,
   onDrop,
   onDragOver,
   onLayoutChange,
@@ -48,11 +54,29 @@ const Canvas: React.FC<CanvasProps> = ({
   onUndo,
   onRedo,
   onPreview,
+  onToggleLibrary,
+  onToggleDrawer,
 }) => {
   return (
-    <div className="drag-canvas-wrapper">
+    <div className={`drag-canvas-wrapper ${libraryVisible ? 'library-open' : ''}`}>
       <Card 
-        title="画布" 
+        title={
+          <Space>
+            <Button
+              type={libraryVisible ? 'primary' : 'default'}
+              icon={<AppstoreOutlined />}
+              onClick={onToggleLibrary}
+              title="组件库"
+            />
+            <Button
+              type={drawerVisible && selectedComponent ? 'primary' : 'default'}
+              icon={<SettingOutlined />}
+              onClick={onToggleDrawer}
+              disabled={!selectedComponent}
+              title="属性配置"
+            />
+          </Space>
+        }
         className="drag-canvas-card"
         styles={{ body: { height: 'calc(100% - 57px)', overflow: 'auto' } }}
         extra={
@@ -105,7 +129,7 @@ const Canvas: React.FC<CanvasProps> = ({
             {components.length === 0 ? (
               <div className="drag-empty-canvas">
                 <Text type="secondary" style={{ fontSize: '16px' }}>
-                  从左侧拖拽组件到此处开始设计
+                  点击组件库按钮选择组件，拖拽到此处开始设计
                 </Text>
               </div>
             ) : (

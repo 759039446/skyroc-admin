@@ -1,5 +1,6 @@
-import { Card, Button, Typography } from 'antd';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { Card, Typography } from 'antd';
+import { useState } from 'react';
+import { AppstoreOutlined, LayoutOutlined, PictureOutlined, FileTextOutlined } from '@ant-design/icons';
 import { COMPONENT_REGISTRY } from '../../../components';
 import type { ComponentConfig } from '../../../components';
 import './styles.css';
@@ -7,8 +8,8 @@ import './styles.css';
 const { Text } = Typography;
 
 interface ComponentLibraryProps {
-  collapsed: boolean;
-  onToggleCollapse: () => void;
+  visible: boolean;
+  onClose: () => void;
   onDragStart: (e: React.DragEvent, componentType: string) => void;
 }
 
@@ -32,66 +33,85 @@ const getGroupedComponents = () => {
   return grouped;
 };
 
+// 分类图标映射
+const categoryIcons: Record<string, React.ReactNode> = {
+  '基础组件': <AppstoreOutlined />,
+  '容器组件': <LayoutOutlined />,
+  '展示组件': <PictureOutlined />,
+  '其他组件': <FileTextOutlined />,
+};
+
 const ComponentLibrary: React.FC<ComponentLibraryProps> = ({
-  collapsed,
-  onToggleCollapse,
+  visible,
+  onClose,
   onDragStart,
 }) => {
   const groupedComponents = getGroupedComponents();
+  const categories = Object.keys(groupedComponents);
+  
+  // 当前选中的分类
+  const [selectedCategory, setSelectedCategory] = useState<string>(categories[0] || '');
+  
+  // 当前分类的组件
+  const currentComponents = selectedCategory ? groupedComponents[selectedCategory] : [];
 
   return (
-    <div className={`drag-left-panel ${collapsed ? 'collapsed' : ''}`}>
-      <Card 
-        title="组件库" 
-        className="drag-panel-card"
-        styles={{ 
-          body: { 
-            padding: '12px',
-            overflowY: 'auto',
-            overflowX: 'hidden',
-          } 
+    <div className={`drag-component-library-panel ${visible ? 'visible' : ''}`}>
+      <Card
+        title="组件库"
+        className="drag-component-library-card"
+        styles={{
+          body: {
+            padding: 0,
+            height: 'calc(100% - 57px)',
+            display: 'flex',
+          }
         }}
-        extra={
-          <Button 
-            type="text" 
-            size="small" 
-            icon={collapsed ? <RightOutlined /> : <LeftOutlined />}
-            onClick={onToggleCollapse}
-            title={collapsed ? '展开组件库' : '收起组件库'}
-          />
-        }
       >
-        <div className="drag-component-list">
-          {Object.entries(groupedComponents).map(([category, components]) => (
-            <div key={category} className="drag-component-group">
-              <div className="drag-component-group-title">{category}</div>
-              <div className="drag-component-group-items">
-                {components.map(component => (
-                  <Card
-                    key={component.id}
-                    size="small"
-                    hoverable
-                    draggable
-                    onDragStart={(e) => onDragStart(e, component.type)}
-                    className="drag-component-item"
-                  >
-                    <div className="drag-component-item-content">
-                      {component.previewImage ? (
-                        <img 
-                          src={component.previewImage} 
-                          alt={component.label}
-                          className="drag-component-preview-image"
-                        />
-                      ) : (
-                        <span className="drag-component-icon">{component.icon}</span>
-                      )}
-                      <Text className="drag-component-label">{component.label}</Text>
-                    </div>
-                  </Card>
-                ))}
+        <div className="drag-library-container">
+          {/* 左侧分类导航 */}
+          <div className="drag-category-nav">
+            {categories.map(category => (
+              <div
+                key={category}
+                className={`drag-category-item ${selectedCategory === category ? 'active' : ''}`}
+                onClick={() => setSelectedCategory(category)}
+                title={category}
+              >
+                <span className="drag-category-icon">
+                  {categoryIcons[category] || <AppstoreOutlined />}
+                </span>
+                <span className="drag-category-name">{category}</span>
               </div>
+            ))}
+          </div>
+          
+          {/* 右侧组件列表 */}
+          <div className="drag-component-content">
+            <div className="drag-component-group-items">
+              {currentComponents.map(component => (
+                <div
+                  key={component.id}
+                  draggable
+                  onDragStart={(e) => onDragStart(e, component.type)}
+                  className="drag-component-item"
+                >
+                  <div className="drag-component-item-content">
+                    {component.previewImage ? (
+                      <img 
+                        src={component.previewImage} 
+                        alt={component.label}
+                        className="drag-component-preview-image"
+                      />
+                    ) : (
+                      <span className="drag-component-icon">{component.icon}</span>
+                    )}
+                    <Text className="drag-component-label">{component.label}</Text>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </Card>
     </div>

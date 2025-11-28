@@ -20,8 +20,8 @@ const Drag = () => {
   const [selectedComponent, setSelectedComponent] = useState<string | null>(null);
   const [form] = Form.useForm();
   
-  // 侧边栏折叠状态
-  const [leftPanelCollapsed, setLeftPanelCollapsed] = useState(false);
+  // 组件库可见性状态
+  const [libraryVisible, setLibraryVisible] = useState(false);
   
   // 预览模式状态
   const [previewVisible, setPreviewVisible] = useState(false);
@@ -222,10 +222,10 @@ const Drag = () => {
 
   return (
     <div className="drag-container">
-      {/* 左侧组件库 */}
+      {/* 组件库抽屉 */}
       <ComponentLibrary
-        collapsed={leftPanelCollapsed}
-        onToggleCollapse={() => setLeftPanelCollapsed(!leftPanelCollapsed)}
+        visible={libraryVisible}
+        onClose={() => setLibraryVisible(false)}
         onDragStart={handleDragStart}
       />
 
@@ -236,6 +236,8 @@ const Drag = () => {
         gridConfig={GRID_CONFIG}
         historyIndex={historyIndex}
         historyLength={history.length}
+        libraryVisible={libraryVisible}
+        drawerVisible={drawerVisible}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onLayoutChange={handleLayoutChange}
@@ -247,6 +249,15 @@ const Drag = () => {
         onUndo={handleUndo}
         onRedo={handleRedo}
         onPreview={() => setPreviewVisible(true)}
+        onToggleLibrary={() => setLibraryVisible(!libraryVisible)}
+        onToggleDrawer={() => {
+          if (!selectedComponent) return;
+          const component = canvasComponents.find(c => c.i === selectedComponent);
+          if (component) {
+            form.setFieldsValue(component.props);
+          }
+          setDrawerVisible(!drawerVisible);
+        }}
       />
 
       {/* 属性配置面板 */}

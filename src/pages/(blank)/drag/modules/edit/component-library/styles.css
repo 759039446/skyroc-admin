@@ -1,47 +1,109 @@
-/* 左侧组件库面板 */
-.drag-left-panel {
-  width: 240px;
+/* 组件库侧边面板 - 固定定位，从左侧滑出 */
+.drag-component-library-panel {
+  position: fixed;
+  left: 16px;
+  top: 16px;
+  bottom: 16px;
+  width: 320px;
+  z-index: 1000;
+  transform: translateX(calc(-100% - 16px));
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+}
+
+.drag-component-library-panel.visible {
+  transform: translateX(0);
+}
+
+.drag-component-library-card {
   height: 100%;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 8px;
+  border: none;
   overflow: hidden;
-}
-
-/* 左侧面板折叠状态 */
-.drag-left-panel.collapsed {
-  width: 48px;
-}
-
-.drag-left-panel.collapsed .drag-component-list,
-.drag-left-panel.collapsed .ant-card-body {
-  opacity: 0;
-  pointer-events: none;
 }
 
 /* ========================================
    组件库列表样式
    ======================================== */
 
-.drag-component-list {
+/* 组件库容器 - 左右分栏 */
+.drag-library-container {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  width: 100%;
+  height: 100%;
 }
 
-/* 组件分组容器 */
-.drag-component-group {
+/* 左侧分类导航 */
+.drag-category-nav {
+  width: 56px;
+  background: #fafafa;
+  border-right: 1px solid #e8e8e8;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  padding: 6px 0;
+  gap: 3px;
+  overflow-y: auto;
 }
 
-/* 分组标题 */
-.drag-component-group-title {
-  font-size: 12px;
-  font-weight: 600;
-  color: #262626;
-  padding: 2px 0;
-  border-bottom: 2px solid #1890ff;
-  margin-bottom: 2px;
+/* 分类导航项 */
+.drag-category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+  margin: 0 4px;
+  position: relative;
+}
+
+.drag-category-item:hover {
+  background: var(--ant-color-primary-bg-hover, #e6f0ff);
+}
+
+.drag-category-item.active {
+  background: var(--ant-color-primary, #1890ff);
+  color: #ffffff;
+}
+
+.drag-category-item.active .drag-category-icon {
+  color: #ffffff;
+}
+
+/* 分类图标 */
+.drag-category-icon {
+  font-size: 16px;
+  color: #595959;
+  transition: color 0.2s ease;
+  margin-bottom: 3px;
+}
+
+.drag-category-item:hover .drag-category-icon {
+  color: var(--ant-color-primary, #1890ff);
+}
+
+.drag-category-item.active .drag-category-icon {
+  color: #ffffff;
+}
+
+/* 分类名称 - 两个字一行自动换行 */
+.drag-category-name {
+  font-size: 10px;
+  text-align: center;
+  line-height: 1.3;
+  width: 2em;
+  word-break: break-all;
+  white-space: normal;
+}
+
+/* 右侧组件内容区域 */
+.drag-component-content {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* 分组内的组件网格布局 - 一排两个 */
@@ -55,18 +117,16 @@
 .drag-component-item {
   cursor: move;
   transition: all 0.2s ease;
-  border-radius: 4px;
+  border-radius: 6px;
   border: 1px solid #e8e8e8;
-}
-
-.drag-component-item .ant-card-body {
+  background: #ffffff;
   padding: 8px 4px;
 }
 
 .drag-component-item:hover {
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.15);
-  border-color: #1890ff;
+  box-shadow: 0 2px 8px var(--ant-color-primary-bg, rgba(24, 144, 255, 0.15));
+  border-color: var(--ant-color-primary, #1890ff);
 }
 
 .drag-component-item:active {

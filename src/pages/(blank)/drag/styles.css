@@ -2,16 +2,14 @@
    拖拽编辑器 - 主容器布局样式
    ======================================== */
 
-/* 主容器 - 使用 Flexbox 布局 */
+/* 主容器 - 画布占满整个区域 */
 .drag-container {
   display: flex;
   height: 100%;
-  gap: 16px;
   background: #f5f7fa;
   padding: 16px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  min-width: min-content;
+  overflow: hidden;
+  position: relative;
 }
 
 /* ========================================
@@ -83,7 +81,7 @@
 
 /* 拖拽占位符 */
 .react-grid-item.react-grid-placeholder {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--ant-color-primary, #1890ff);
   opacity: 0.2;
   transition-duration: 100ms;
   z-index: 2;
@@ -107,15 +105,15 @@
 }
 
 .drag-grid-item:hover {
-  border-color: #1890ff;
-  box-shadow: 0 4px 16px rgba(24, 144, 255, 0.2);
+  border-color: var(--ant-color-primary, #1890ff);
+  box-shadow: 0 4px 16px var(--ant-color-primary-bg-hover, rgba(24, 144, 255, 0.2));
   transform: translateY(-1px);
 }
 
 /* 选中状态 */
 .drag-grid-item.selected {
-  border-color: #1890ff;
-  box-shadow: 0 0 0 3px rgba(24, 144, 255, 0.15);
+  border-color: var(--ant-color-primary, #1890ff);
+  box-shadow: 0 0 0 3px var(--ant-color-primary-bg, rgba(24, 144, 255, 0.15));
 }
 
 /* 组件工具栏 - 悬停时显示在组件外部上方 */
@@ -145,7 +143,7 @@
 /* 组件标签 */
 .drag-item-label {
   font-size: 11px;
-  color: #1890ff;
+  color: var(--ant-color-primary, #1890ff);
   font-weight: 500;
   user-select: none;
 }
@@ -200,8 +198,8 @@
   bottom: 3px;
   width: 8px;
   height: 8px;
-  border-right: 2px solid #1890ff;
-  border-bottom: 2px solid #1890ff;
+  border-right: 2px solid var(--ant-color-primary, #1890ff);
+  border-bottom: 2px solid var(--ant-color-primary, #1890ff);
   opacity: 0.6;
   transition: opacity 0.2s ease;
 }
@@ -254,12 +252,6 @@
 /* ========================================
    响应式适配
    ======================================== */
-
-@media (max-width: 1600px) {
-  .drag-left-panel {
-    width: 220px;
-  }
-}
 
 @media (max-width: 1200px) {
   .drag-container {

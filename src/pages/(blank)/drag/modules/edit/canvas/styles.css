@@ -4,6 +4,13 @@
   display: flex;
   flex-direction: column;
   min-width: 1248px; /* 1200px画布 + 左右padding 24px*2 */
+  margin-left: 0;
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 组件库打开时，画布左移 */
+.drag-canvas-wrapper.library-open {
+  margin-left: 320px;
 }
 
 .drag-canvas-card {
@@ -49,6 +56,6 @@
 }
 
 .drag-empty-canvas:hover {
-  border-color: #1890ff;
-  background: #f0f8ff;
+  border-color: var(--ant-color-primary, #1890ff);
+  background: var(--ant-color-primary-bg, #f0f8ff);
 }
