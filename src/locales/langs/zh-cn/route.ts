@@ -35,6 +35,7 @@ const route: App.I18n.Schema['translation']['route'] = {
   '(blank)_login_register': ' 注册账号',
   '(blank)_login_reset-pwd': '重置密码',
   '(blank)_login-out': '退出登录',
+  '(blank)_drag': '主页设计',
   '403': '无权限',
   '404': '页面不存在',
   '500': '服务器错误',

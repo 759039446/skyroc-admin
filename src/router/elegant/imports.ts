@@ -18,7 +18,6 @@ export const layouts: Record<string, () => Promise<any>> = {
 
 export const pages: Record<string, () => Promise<any>> = {
 "(base)_about": () => import("@/pages/(base)/about/index.tsx"),
-"(base)_drag": () => import("@/pages/(base)/drag/index.tsx"),
 "(base)_function_event-bus": () => import("@/pages/(base)/function/event-bus/index.tsx"),
 "(base)_function_hide-child": () => import("@/pages/(base)/function/hide-child/index.tsx"),
 "(base)_function_hide-child_one": () => import("@/pages/(base)/function/hide-child/one/index.tsx"),
@@ -48,6 +47,7 @@ export const pages: Record<string, () => Promise<any>> = {
 "(base)_projects_[pid]": () => import("@/pages/(base)/projects/[pid]/index.tsx"),
 "(base)_projects": () => import("@/pages/(base)/projects/index.tsx"),
 "(base)_user-center": () => import("@/pages/(base)/user-center/index.tsx"),
+"(blank)_drag": () => import("@/pages/(blank)/drag/index.tsx"),
 "(blank)_login-out": () => import("@/pages/(blank)/login-out/index.tsx"),
 "(blank)_login_code-login": () => import("@/pages/(blank)/login/code-login/index.tsx"),
 "(blank)_login": () => import("@/pages/(blank)/login/index.tsx"),

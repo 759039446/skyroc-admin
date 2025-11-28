@@ -30,7 +30,6 @@ declare module "@soybean-react/vite-plugin-react-router" {
     "document_antd": "/document/antd";
     "document_ui": "/document/ui";
     "(base)_about": "/about";
-    "(base)_drag": "/drag";
     "(base)_function": "/function";
     "(base)_function_event-bus": "/function/event-bus";
     "(base)_function_hide-child": "/function/hide-child";
@@ -60,6 +59,7 @@ declare module "@soybean-react/vite-plugin-react-router" {
     "(base)_projects_[pid]_edit": "/projects/:pid/edit";
     "(base)_projects_[pid]_edit_[id]": "/projects/:pid/edit/:id";
     "(base)_user-center": "/user-center";
+    "(blank)_drag": "/drag";
     "(blank)_login": "/login";
     "(blank)_login_code-login": "/login/code-login";
     "(blank)_login_register": "/login/register";
@@ -138,7 +138,6 @@ declare module "@soybean-react/vite-plugin-react-router" {
   export type LastLevelRouteKey = Extract<
     RouteKey,
     | "(base)_about"
-    | "(base)_drag"
     | "(base)_function_event-bus"
     | "(base)_function_hide-child"
     | "(base)_function_hide-child_one"
@@ -169,6 +168,7 @@ declare module "@soybean-react/vite-plugin-react-router" {
     | "(base)_projects_[pid]"
     | "(base)_projects"
     | "(base)_user-center"
+    | "(blank)_drag"
     | "(blank)"
     | "(blank)_login-out"
     | "(blank)_login_code-login"
