@@ -168,30 +168,60 @@ historyIndex: number          // 当前历史位置
 
 ```
 drag/
-├── index.tsx                 # 主入口文件，画布逻辑
-├── styles.css               # 样式文件（滚动条、网格等）
-├── README.md                # 本文件
-└── components/              # 组件配置目录
-    ├── types.ts            # 类型定义
-    ├── index.ts            # 组件注册表
-    ├── README.md           # 组件开发文档
-    ├── Button/             # 按钮组件
-    │   └── index.tsx
-    ├── Input/              # 输入框组件
-    │   └── index.tsx
-    ├── Card/               # 卡片组件
-    │   └── index.tsx
-    ├── Tag/                # 标签组件
-    │   └── index.tsx
-    ├── Text/               # 文本组件
-    │   └── index.tsx
-    ├── Title/              # 标题组件
-    │   └── index.tsx
-    ├── Div/                # 容器组件
-    │   └── index.tsx
-    └── Image/              # 图片组件
-        └── index.tsx
+├── index.tsx                    # 主入口文件，状态管理和事件协调
+├── styles.css                   # 通用样式文件（网格、组件项等）
+├── README.md                    # 本文件
+├── components/                  # 组件配置目录
+│   ├── types.ts                # 类型定义
+│   ├── index.ts                # 组件注册表
+│   ├── README.md               # 组件开发文档
+│   ├── Button/                 # 按钮组件
+│   │   └── index.tsx
+│   ├── Input/                  # 输入框组件
+│   │   └── index.tsx
+│   ├── Card/                   # 卡片组件
+│   │   └── index.tsx
+│   ├── Tag/                    # 标签组件
+│   │   └── index.tsx
+│   ├── Text/                   # 文本组件
+│   │   └── index.tsx
+│   ├── Title/                  # 标题组件
+│   │   └── index.tsx
+│   ├── Div/                    # 容器组件
+│   │   └── index.tsx
+│   └── Image/                  # 图片组件
+│       └── index.tsx
+└── modules/                     # 功能模块目录
+    ├── preview/                # 预览模块
+    │   ├── preview.tsx
+    │   └── preview.css
+    └── edit/                   # 编辑器模块（新增）
+        ├── index.ts            # 模块导出入口
+        ├── README.md           # 模块说明文档
+        ├── component-library/  # 组件库模块
+        │   ├── index.tsx       # 组件库主文件
+        │   └── styles.css      # 组件库样式
+        ├── canvas/             # 画布模块
+        │   ├── index.tsx       # 画布主文件
+        │   └── styles.css      # 画布样式
+        └── property-panel/     # 属性配置模块
+            ├── index.tsx       # 属性面板主文件
+            └── styles.css      # 属性面板样式
 ```
+
+### 模块化架构说明
+
+**编辑器模块 (modules/edit)**：将原有的单体组件拆分为三个独立模块：
+
+1. **组件库 (component-library)**：左侧组件面板，负责展示可拖拽的组件列表
+2. **画布 (canvas)**：中间编辑区域，负责组件的布局和交互
+3. **属性配置 (property-panel)**：右侧抽屉面板，负责组件属性的配置
+
+**优势**：
+- 职责分离，每个模块独立维护
+- 代码复用性更高
+- 易于测试和调试
+- 样式隔离，避免冲突
 
 ## 🔑 核心概念
 

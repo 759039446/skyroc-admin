@@ -16,26 +16,8 @@
 
 /* ========================================
    侧边栏面板样式（左右两侧）
+   注意：组件库面板样式已迁移至 modules/edit/component-library/styles.css
    ======================================== */
-
-/* 左侧组件库面板 */
-.drag-left-panel {
-  width: 240px;
-  height: 100%;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
-}
-
-/* 左侧面板折叠状态 */
-.drag-left-panel.collapsed {
-  width: 48px;
-}
-
-.drag-left-panel.collapsed .drag-component-list,
-.drag-left-panel.collapsed .ant-card-body {
-  opacity: 0;
-  pointer-events: none;
-}
 
 /* 面板卡片通用样式 */
 .drag-panel-card {
@@ -56,145 +38,14 @@
 
 /* ========================================
    组件库列表样式
+   注意：组件库列表样式已迁移至 modules/edit/component-library/styles.css
    ======================================== */
-
-.drag-component-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-/* 组件分组容器 */
-.drag-component-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-/* 分组标题 */
-.drag-component-group-title {
-  font-size: 12px;
-  font-weight: 600;
-  color: #262626;
-  padding: 2px 0;
-  border-bottom: 2px solid #1890ff;
-  margin-bottom: 2px;
-}
-
-/* 分组内的组件网格布局 - 一排两个 */
-.drag-component-group-items {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 6px;
-}
-
-/* 组件库项 */
-.drag-component-item {
-  cursor: move;
-  transition: all 0.2s ease;
-  border-radius: 4px;
-  border: 1px solid #e8e8e8;
-}
-
-.drag-component-item .ant-card-body {
-  padding: 8px 4px;
-}
-
-.drag-component-item:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.15);
-  border-color: #1890ff;
-}
-
-.drag-component-item:active {
-  transform: scale(0.98);
-}
-
-.drag-component-item-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-}
-
-.drag-component-icon {
-  font-size: 18px;
-  display: inline-block;
-}
-
-.drag-component-preview-image {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
-  border-radius: 2px;
-}
-
-.drag-component-label {
-  font-size: 11px;
-  text-align: center;
-  line-height: 1.2;
-}
 
 /* ========================================
    画布区域样式
+   注意：画布布局样式已迁移至 modules/edit/canvas/styles.css
+   以下保留画布内网格项相关的通用样式
    ======================================== */
-
-/* 画布外层容器 */
-.drag-canvas-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-width: 1248px; /* 1200px画布 + 左右padding 24px*2 */
-}
-
-/* 画布卡片 */
-.drag-canvas-card {
-  height: 100%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  border-radius: 8px;
-}
-
-/* 画布容器 - 居中显示固定宽度的画布 */
-.drag-canvas-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background: #f0f2f5;
-  padding: 24px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-/* 画布 - 固定宽度，居中显示 */
-.drag-canvas {
-  position: relative;
-  min-height: calc(100vh - 250px);
-  background: #ffffff;
-  border-radius: 4px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-  padding: 30px 20px 20px 20px;
-}
-
-/* 空画布提示 */
-.drag-empty-canvas {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 400px;
-  border: 2px dashed #d9d9d9;
-  border-radius: 8px;
-  background: #fafafa;
-  transition: all 0.3s ease;
-}
-
-.drag-empty-canvas:hover {
-  border-color: #1890ff;
-  background: #f0f8ff;
-}
 
 
 /* ========================================

@@ -1,0 +1,8 @@
+/* 属性配置面板样式 */
+.property-panel-drawer .ant-drawer-body {
+  padding: 16px;
+}
+
+.property-panel-form {
+  width: 100%;
+}

@@ -5,7 +5,7 @@ import GridLayout from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 import './preview.css';
-import { getComponentConfig, type CanvasComponent } from '../components';
+import { getComponentConfig, type CanvasComponent } from '../../components';
 
 interface PreviewProps {
   open: boolean;

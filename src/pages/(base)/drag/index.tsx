@@ -1,15 +1,10 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Button, Space, Typography, Form, Divider, Drawer } from 'antd';
-import { LeftOutlined, RightOutlined, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
-import GridLayout from 'react-grid-layout';
-import 'react-grid-layout/css/styles.css';
-import 'react-resizable/css/styles.css';
+import { Form } from 'antd';
 import './styles.css';
-import { COMPONENT_REGISTRY, getComponentConfig, type CanvasComponent } from './components';
-import Preview from './modules/preview';
-
-const { Text } = Typography;
+import { getComponentConfig, type CanvasComponent } from './components';
+import Preview from './modules/preview/preview';
+import { ComponentLibrary, Canvas, PropertyPanel } from './modules/edit';
 
 // 网格配置项
 const GRID_CONFIG = {
@@ -206,28 +201,6 @@ const Drag = () => {
     e.dataTransfer.setData('componentType', componentType);
   };
 
-  // 组件分组处理
-  const getGroupedComponents = () => {
-    // 按 category 分组
-    const grouped = COMPONENT_REGISTRY.reduce((acc, component) => {
-      const category = component.category;
-      if (!acc[category]) {
-        acc[category] = [];
-      }
-      acc[category].push(component);
-      return acc;
-    }, {} as Record<string, typeof COMPONENT_REGISTRY>);
-
-    // 对每个分组内的组件按 order 排序
-    Object.keys(grouped).forEach(category => {
-      grouped[category].sort((a, b) => a.order - b.order);
-    });
-
-    return grouped;
-  };
-
-  const groupedComponents = getGroupedComponents();
-
   // 键盘快捷键监听
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -247,226 +220,43 @@ const Drag = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleUndo, handleRedo]);
 
-  // 渲染属性配置表单
-  const renderPropertyPanel = () => {
-    if (!currentComponent) return null;
-
-    const { type, props } = currentComponent;
-    const componentConfig = getComponentConfig(type);
-
-    if (!componentConfig) {
-      return <Text type="secondary">未知组件类型</Text>;
-    }
-
-    return (
-      <Form
-        form={form}
-        layout="vertical"
-        onValuesChange={(_, allValues) => {
-          updateComponentProps(currentComponent.i, allValues);
-        }}
-        initialValues={props}
-      >
-        <Divider orientation="left" style={{ fontSize: '14px', margin: '8px 0' }}>
-          {componentConfig.label} 属性
-        </Divider>
-        {componentConfig.renderPropertyPanel?.(props, form)}
-      </Form>
-    );
-  };
-
   return (
     <div className="drag-container">
       {/* 左侧组件库 */}
-      <div className={`drag-left-panel ${leftPanelCollapsed ? 'collapsed' : ''}`}>
-        <Card 
-          title="组件库" 
-          className="drag-panel-card"
-          styles={{ 
-            body: { 
-              padding: '12px',
-              overflowY: 'auto',
-              overflowX: 'hidden',
-            } 
-          }}
-          extra={
-            <Button 
-              type="text" 
-              size="small" 
-              icon={leftPanelCollapsed ? <RightOutlined /> : <LeftOutlined />}
-              onClick={() => setLeftPanelCollapsed(!leftPanelCollapsed)}
-              title={leftPanelCollapsed ? '展开组件库' : '收起组件库'}
-            />
-          }
-        >
-          <div className="drag-component-list">
-            {Object.entries(groupedComponents).map(([category, components]) => (
-              <div key={category} className="drag-component-group">
-                <div className="drag-component-group-title">{category}</div>
-                <div className="drag-component-group-items">
-                  {components.map(component => (
-                    <Card
-                      key={component.id}
-                      size="small"
-                      hoverable
-                      draggable
-                      onDragStart={(e) => handleDragStart(e, component.type)}
-                      className="drag-component-item"
-                    >
-                      <div className="drag-component-item-content">
-                        {component.previewImage ? (
-                          <img 
-                            src={component.previewImage} 
-                            alt={component.label}
-                            className="drag-component-preview-image"
-                          />
-                        ) : (
-                          <span className="drag-component-icon">{component.icon}</span>
-                        )}
-                        <Text className="drag-component-label">{component.label}</Text>
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </Card>
-      </div>
+      <ComponentLibrary
+        collapsed={leftPanelCollapsed}
+        onToggleCollapse={() => setLeftPanelCollapsed(!leftPanelCollapsed)}
+        onDragStart={handleDragStart}
+      />
 
       {/* 中间画布区域 */}
-      <div className="drag-canvas-wrapper">
-        <Card 
-          title="画布" 
-          className="drag-canvas-card"
-          styles={{ body: { height: 'calc(100% - 57px)', overflow: 'auto' } }}
-          extra={
-            <Space>
-              <Text type="secondary">组件数: {canvasComponents.length}</Text>
-              <Button 
-                size="small"
-                icon={<EyeOutlined />}
-                onClick={() => setPreviewVisible(true)}
-                type="primary"
-                title="预览页面"
-              >
-                预览
-              </Button>
-              <Button 
-                size="small"
-                icon={<span>↶</span>}
-                onClick={handleUndo}
-                disabled={historyIndex <= 0}
-                title="撤回 (Ctrl+Z)"
-              >
-                撤回
-              </Button>
-              <Button 
-                size="small"
-                icon={<span>↷</span>}
-                onClick={handleRedo}
-                disabled={historyIndex >= history.length - 1}
-                title="恢复 (Ctrl+Y)"
-              >
-                恢复
-              </Button>
-              <Button 
-                size="small" 
-                danger 
-                onClick={handleClearCanvas}
-              >
-                清空画布
-              </Button>
-            </Space>
-          }
-        >
-          <div className="drag-canvas-container">
-            <div 
-              className="drag-canvas"
-              onDrop={handleDrop}
-              onDragOver={handleDragOver}
-              style={{ width: `${GRID_CONFIG.width}px` }}
-            >
-              {canvasComponents.length === 0 ? (
-                <div className="drag-empty-canvas">
-                  <Text type="secondary" style={{ fontSize: '16px' }}>
-                    从左侧拖拽组件到此处开始设计
-                  </Text>
-                </div>
-              ) : (
-                <div style={{ paddingBottom: '400px' }}>
-                  <GridLayout
-                    className="layout"
-                    layout={canvasComponents}
-                    cols={GRID_CONFIG.cols}
-                    rowHeight={GRID_CONFIG.rowHeight}
-                    width={GRID_CONFIG.width}
-                    autoSize={true}
-                    onLayoutChange={handleLayoutChange}
-                    onDragStop={handleLayoutChangeComplete}
-                    onResizeStop={handleLayoutChangeComplete}
-                    draggableHandle=".drag-handle"
-                  >
-                    {canvasComponents.map(component => (
-                      <div 
-                        key={component.i}
-                        className={`drag-grid-item ${
-                          selectedComponent === component.i ? 'selected' : ''
-                        }`}
-                        onClick={() => handleSelectComponent(component.i)}
-                        onDoubleClick={() => handleOpenPropertyDrawer(component.i)}
-                      >
-                        {/* 拖拽控制栏 - 悬停时显示 */}
-                        <div className="drag-handle drag-item-toolbar">
-                          <span className="drag-item-label">
-                            {getComponentConfig(component.type)?.label}
-                          </span>
-                          <DeleteOutlined 
-                            className="drag-item-remove"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleRemoveComponent(component.i);
-                            }}
-                          />
-                        </div>
-                        {/* 组件内容区域 */}
-                        <div className="drag-item-content">
-                          {getComponentConfig(component.type)?.render(component.props)}
-                        </div>
-                      </div>
-                    ))}
-                  </GridLayout>
-                </div>
-              )}
-            </div>
-          </div>
-        </Card>
-      </div>
+      <Canvas
+        components={canvasComponents}
+        selectedComponent={selectedComponent}
+        gridConfig={GRID_CONFIG}
+        historyIndex={historyIndex}
+        historyLength={history.length}
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}
+        onLayoutChange={handleLayoutChange}
+        onLayoutChangeComplete={handleLayoutChangeComplete}
+        onSelectComponent={handleSelectComponent}
+        onOpenPropertyDrawer={handleOpenPropertyDrawer}
+        onRemoveComponent={handleRemoveComponent}
+        onClearCanvas={handleClearCanvas}
+        onUndo={handleUndo}
+        onRedo={handleRedo}
+        onPreview={() => setPreviewVisible(true)}
+      />
 
-      {/* 属性配置抽屉 */}
-      <Drawer
-        title={
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span>属性配置</span>
-            {currentComponent && (
-              <Text type="secondary" style={{ fontSize: '12px' }}>
-                {getComponentConfig(currentComponent.type)?.label}
-              </Text>
-            )}
-          </div>
-        }
-        placement="right"
-        width={400}
-        open={drawerVisible && !!currentComponent}
+      {/* 属性配置面板 */}
+      <PropertyPanel
+        visible={drawerVisible}
+        component={currentComponent || null}
+        form={form}
         onClose={() => setDrawerVisible(false)}
-        styles={{
-          body: {
-            padding: '16px',
-          },
-        }}
-      >
-        {renderPropertyPanel()}
-      </Drawer>
+        onValuesChange={updateComponentProps}
+      />
       
       {/* 预览弹窗 */}
       <Preview

@@ -1,0 +1,100 @@
+/* 左侧组件库面板 */
+.drag-left-panel {
+  width: 240px;
+  height: 100%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+/* 左侧面板折叠状态 */
+.drag-left-panel.collapsed {
+  width: 48px;
+}
+
+.drag-left-panel.collapsed .drag-component-list,
+.drag-left-panel.collapsed .ant-card-body {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ========================================
+   组件库列表样式
+   ======================================== */
+
+.drag-component-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* 组件分组容器 */
+.drag-component-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* 分组标题 */
+.drag-component-group-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #262626;
+  padding: 2px 0;
+  border-bottom: 2px solid #1890ff;
+  margin-bottom: 2px;
+}
+
+/* 分组内的组件网格布局 - 一排两个 */
+.drag-component-group-items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+/* 组件库项 */
+.drag-component-item {
+  cursor: move;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+  border: 1px solid #e8e8e8;
+}
+
+.drag-component-item .ant-card-body {
+  padding: 8px 4px;
+}
+
+.drag-component-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.15);
+  border-color: #1890ff;
+}
+
+.drag-component-item:active {
+  transform: scale(0.98);
+}
+
+.drag-component-item-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.drag-component-icon {
+  font-size: 18px;
+  display: inline-block;
+}
+
+.drag-component-preview-image {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  border-radius: 2px;
+}
+
+.drag-component-label {
+  font-size: 11px;
+  text-align: center;
+  line-height: 1.2;
+}
