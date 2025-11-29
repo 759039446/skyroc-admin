@@ -2,9 +2,26 @@
 
 ## 修改概述
 
-本次修改重构了组件库和属性配置的展示逻辑，提升了用户体验。
+本次修改重构了组件库和属性配置的展示逻辑，提升了用户体验，并新增了完整的商城组件库。
 
 ## 主要变更
+
+### 最新更新：商城组件库 (2024-11-29)
+- **新增分类**：商城组件（🛒 ShoppingOutlined）
+- **新增组件**：11个完整的电商页面组件
+  1. **顶部导航栏**：网站主导航、登录注册、快捷入口
+  2. **搜索栏**：商品搜索功能，支持自定义样式
+  3. **购物车**：购物车数量显示、批量采购入口
+  4. **商城Logo**：品牌标识、标语展示
+  5. **主导航菜单**：商品分类导航，支持多列布局
+  6. **轮播广告**：促销活动展示，支持多个广告轮播
+  7. **企业权益**：企业专属功能和服务展示
+  8. **促销信息**：新客优惠、活动推广
+  9. **商品推荐**：商品列表展示，支持评分、价格等信息
+  10. **底部信息**：公司信息、服务指南、联系方式
+  11. **认证与合作**：资质认证、合作伙伴、旗下网站展示
+
+## 历史变更
 
 ### 0. 主题色统一
 - **依赖主题系统**：整个编辑器使用项目的 Ant Design 主题色系统
@@ -162,8 +179,42 @@
     - 错误提示样式
     - 自定义滚动条
 
+### 新增商城组件
+11. **src/pages/(blank)/drag/components/TopNavBar/index.tsx**
+    - 顶部导航栏组件，包含网站主导航和快捷入口
+
+12. **src/pages/(blank)/drag/components/SearchBar/index.tsx**
+    - 搜索栏组件，支持自定义样式和占位符
+
+13. **src/pages/(blank)/drag/components/ShoppingCart/index.tsx**
+    - 购物车组件，显示数量和批量采购入口
+
+14. **src/pages/(blank)/drag/components/MallLogo/index.tsx**
+    - 商城Logo组件，展示品牌标识和标语
+
+15. **src/pages/(blank)/drag/components/MainNavMenu/index.tsx**
+    - 主导航菜单组件，商品分类导航
+
+16. **src/pages/(blank)/drag/components/CarouselAd/index.tsx**
+    - 轮播广告组件，支持多广告轮播展示
+
+17. **src/pages/(blank)/drag/components/EnterpriseRights/index.tsx**
+    - 企业权益组件，展示企业专属功能
+
+18. **src/pages/(blank)/drag/components/PromotionInfo/index.tsx**
+    - 促销信息组件，展示优惠活动
+
+19. **src/pages/(blank)/drag/components/ProductRecommend/index.tsx**
+    - 商品推荐组件，网格布局展示商品
+
+20. **src/pages/(blank)/drag/components/FooterInfo/index.tsx**
+    - 底部信息组件，公司信息和服务指南
+
+21. **src/pages/(blank)/drag/components/CertificationPartner/index.tsx**
+    - 认证与合作组件，展示资质和合作伙伴
+
 ### 新增文档
-11. **src/pages/(blank)/drag/THEME_COLORS.md**
+22. **src/pages/(blank)/drag/THEME_COLORS.md**
     - 主题色规范文档
     - CSS 变量使用指南和示例
     - 定义完整的色彩体系

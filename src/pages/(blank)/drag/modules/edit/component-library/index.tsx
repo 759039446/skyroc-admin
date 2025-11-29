@@ -1,6 +1,12 @@
 import { Card, Typography } from 'antd';
 import { useState } from 'react';
-import { AppstoreOutlined, LayoutOutlined, PictureOutlined, FileTextOutlined } from '@ant-design/icons';
+import { 
+  AppstoreOutlined, 
+  LayoutOutlined, 
+  PictureOutlined, 
+  FileTextOutlined,
+  ShoppingOutlined,
+} from '@ant-design/icons';
 import { COMPONENT_REGISTRY } from '../../../components';
 import type { ComponentConfig } from '../../../components';
 import './styles.css';
@@ -39,6 +45,7 @@ const categoryIcons: Record<string, React.ReactNode> = {
   '容器组件': <LayoutOutlined />,
   '展示组件': <PictureOutlined />,
   '其他组件': <FileTextOutlined />,
+  '商城组件': <ShoppingOutlined />,
 };
 
 const ComponentLibrary: React.FC<ComponentLibraryProps> = ({

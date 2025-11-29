@@ -8,11 +8,25 @@ import { TitleComponent } from './Title';
 import { DivComponent } from './Div';
 import { ImageComponent } from './Image';
 
+// 商城组件
+import { TopNavBarComponent } from './TopNavBar';
+import { SearchBarComponent } from './SearchBar';
+import { ShoppingCartComponent } from './ShoppingCart';
+import { MallLogoComponent } from './MallLogo';
+import { MainNavMenuComponent } from './MainNavMenu';
+import { CarouselAdComponent } from './CarouselAd';
+import { EnterpriseRightsComponent } from './EnterpriseRights';
+import { PromotionInfoComponent } from './PromotionInfo';
+import { ProductRecommendComponent } from './ProductRecommend';
+import { FooterInfoComponent } from './FooterInfo';
+import { CertificationPartnerComponent } from './CertificationPartner';
+
 /**
  * 组件注册表
  * 所有可用组件的配置集合
  */
 export const COMPONENT_REGISTRY: ComponentConfig[] = [
+  // 基础组件
   ButtonComponent,
   InputComponent,
   CardComponent,
@@ -21,6 +35,19 @@ export const COMPONENT_REGISTRY: ComponentConfig[] = [
   TitleComponent,
   DivComponent,
   ImageComponent,
+  
+  // 商城组件
+  TopNavBarComponent,
+  SearchBarComponent,
+  ShoppingCartComponent,
+  MallLogoComponent,
+  MainNavMenuComponent,
+  CarouselAdComponent,
+  EnterpriseRightsComponent,
+  PromotionInfoComponent,
+  ProductRecommendComponent,
+  FooterInfoComponent,
+  CertificationPartnerComponent,
 ];
 
 /**
