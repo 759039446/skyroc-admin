@@ -1,6 +1,6 @@
 import { Form, Input } from 'antd';
 import { SafetyCertificateOutlined, TrophyOutlined, GlobalOutlined } from '@ant-design/icons';
-import type { ComponentConfig } from '../types';
+import type { ComponentConfig } from '../../types';
 
 export const CertificationPartnerComponent: ComponentConfig = {
   id: 'certification-partner',
@@ -26,7 +26,7 @@ export const CertificationPartnerComponent: ComponentConfig = {
     backgroundColor: '#fafafa',
     borderColor: '#e0e0e0',
   },
-  render: (props) => {
+  render: (props, isDesignMode = false) => {
     return (
       <div style={{
         width: '100%',
@@ -35,6 +35,7 @@ export const CertificationPartnerComponent: ComponentConfig = {
         border: `1px solid ${props.borderColor}`,
         borderRadius: '8px',
         padding: '20px',
+        pointerEvents: isDesignMode ? 'none' : 'auto',
       }}>
         <div style={{
           display: 'grid',

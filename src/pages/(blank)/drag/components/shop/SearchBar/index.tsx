@@ -1,6 +1,6 @@
 import { Form, Input, Select } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import type { ComponentConfig } from '../types';
+import type { ComponentConfig } from '../../types';
 
 export const SearchBarComponent: ComponentConfig = {
   id: 'search-bar',
@@ -21,7 +21,7 @@ export const SearchBarComponent: ComponentConfig = {
     buttonColor: '#e1251b',
     borderColor: '#e1251b',
   },
-  render: (props) => {
+  render: (props, isDesignMode = false) => {
     return (
       <div style={{
         width: '100%',
@@ -29,6 +29,7 @@ export const SearchBarComponent: ComponentConfig = {
         display: 'flex',
         alignItems: 'center',
         gap: '10px',
+        pointerEvents: isDesignMode ? 'none' : 'auto',
       }}>
         <input
           type="text"

@@ -1,6 +1,6 @@
 import { Form, Input } from 'antd';
 import { GiftOutlined, PercentageOutlined, DollarOutlined } from '@ant-design/icons';
-import type { ComponentConfig } from '../types';
+import type { ComponentConfig } from '../../types';
 
 export const PromotionInfoComponent: ComponentConfig = {
   id: 'promotion-info',
@@ -25,7 +25,7 @@ export const PromotionInfoComponent: ComponentConfig = {
     borderColor: '#ffccc7',
     highlightColor: '#e1251b',
   },
-  render: (props) => {
+  render: (props, isDesignMode = false) => {
     const getIcon = (iconName: string) => {
       const iconMap: Record<string, React.ReactNode> = {
         gift: <GiftOutlined />,
@@ -43,6 +43,7 @@ export const PromotionInfoComponent: ComponentConfig = {
         border: `2px solid ${props.borderColor}`,
         borderRadius: '8px',
         padding: '20px',
+        pointerEvents: isDesignMode ? 'none' : 'auto',
       }}>
         <div style={{
           marginBottom: '15px',

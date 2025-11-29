@@ -9,17 +9,17 @@ import { DivComponent } from './Div';
 import { ImageComponent } from './Image';
 
 // 商城组件
-import { TopNavBarComponent } from './TopNavBar';
-import { SearchBarComponent } from './SearchBar';
-import { ShoppingCartComponent } from './ShoppingCart';
-import { MallLogoComponent } from './MallLogo';
-import { MainNavMenuComponent } from './MainNavMenu';
-import { CarouselAdComponent } from './CarouselAd';
-import { EnterpriseRightsComponent } from './EnterpriseRights';
-import { PromotionInfoComponent } from './PromotionInfo';
-import { ProductRecommendComponent } from './ProductRecommend';
-import { FooterInfoComponent } from './FooterInfo';
-import { CertificationPartnerComponent } from './CertificationPartner';
+import { TopNavBarComponent } from './shop/TopNavBar';
+import { SearchBarComponent } from './shop/SearchBar';
+import { ShoppingCartComponent } from './shop/ShoppingCart';
+import { MallLogoComponent } from './shop/MallLogo';
+import { MainNavMenuComponent } from './shop/MainNavMenu';
+import { CarouselAdComponent } from './shop/CarouselAd';
+import { EnterpriseRightsComponent } from './shop/EnterpriseRights';
+import { PromotionInfoComponent } from './shop/PromotionInfo';
+import { ProductRecommendComponent } from './shop/ProductRecommend';
+import { FooterInfoComponent } from './shop/FooterInfo';
+import { CertificationPartnerComponent } from './shop/CertificationPartner';
 
 /**
  * 组件注册表

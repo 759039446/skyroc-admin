@@ -1,6 +1,6 @@
 import { Form, Input } from 'antd';
 import { PhoneOutlined, MailOutlined, EnvironmentOutlined } from '@ant-design/icons';
-import type { ComponentConfig } from '../types';
+import type { ComponentConfig } from '../../types';
 
 export const FooterInfoComponent: ComponentConfig = {
   id: 'footer-info',
@@ -30,7 +30,7 @@ export const FooterInfoComponent: ComponentConfig = {
     backgroundColor: '#f5f5f5',
     textColor: '#666',
   },
-  render: (props) => {
+  render: (props, isDesignMode = false) => {
     return (
       <div style={{
         width: '100%',
@@ -38,6 +38,7 @@ export const FooterInfoComponent: ComponentConfig = {
         backgroundColor: props.backgroundColor,
         color: props.textColor,
         padding: '40px 20px 20px 20px',
+        pointerEvents: isDesignMode ? 'none' : 'auto',
       }}>
         {/* 服务链接 */}
         <div style={{

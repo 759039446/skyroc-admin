@@ -18,11 +18,13 @@ export const TagComponent: ComponentConfig = {
     text: '标签',
     color: 'blue',
   },
-  render: (props) => {
+  render: (props, isDesignMode = false) => {
     return (
-      <Tag {...props} color={props.color || 'blue'}>
-        {props.text || '标签'}
-      </Tag>
+      <div style={{ pointerEvents: isDesignMode ? 'none' : 'auto' }}>
+        <Tag {...props} color={props.color || 'blue'}>
+          {props.text || '标签'}
+        </Tag>
+      </div>
     );
   },
   renderPropertyPanel: (props, form) => {

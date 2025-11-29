@@ -20,8 +20,12 @@ export const TextComponent: ComponentConfig = {
     text: '这是一段文本',
     style: {},
   },
-  render: (props) => {
-    return <Text style={props.style}>{props.text || '这是一段文本'}</Text>;
+  render: (props, isDesignMode = false) => {
+    return (
+      <div style={{ pointerEvents: isDesignMode ? 'none' : 'auto' }}>
+        <Text style={props.style}>{props.text || '这是一段文本'}</Text>
+      </div>
+    );
   },
   renderPropertyPanel: (props, form) => {
     return (

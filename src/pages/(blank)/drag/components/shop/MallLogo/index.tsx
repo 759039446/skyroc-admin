@@ -1,5 +1,5 @@
 import { Form, Input } from 'antd';
-import type { ComponentConfig } from '../types';
+import type { ComponentConfig } from '../../types';
 
 export const MallLogoComponent: ComponentConfig = {
   id: 'mall-logo',
@@ -21,7 +21,7 @@ export const MallLogoComponent: ComponentConfig = {
     sloganColor: '#666',
     showSlogan: true,
   },
-  render: (props) => {
+  render: (props, isDesignMode = false) => {
     return (
       <div style={{
         width: '100%',
@@ -31,6 +31,7 @@ export const MallLogoComponent: ComponentConfig = {
         alignItems: 'center',
         justifyContent: 'center',
         gap: '10px',
+        pointerEvents: isDesignMode ? 'none' : 'auto',
       }}>
         <div style={{
           fontSize: '48px',

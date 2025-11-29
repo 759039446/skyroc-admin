@@ -19,13 +19,15 @@ export const InputComponent: ComponentConfig = {
     size: 'middle',
     style: {},
   },
-  render: (props) => {
+  render: (props, isDesignMode = false) => {
     return (
-      <Input
-        {...props}
-        placeholder={props.placeholder || '请输入内容'}
-        style={props.style}
-      />
+      <div style={{ pointerEvents: isDesignMode ? 'none' : 'auto', width: '100%', height: '100%' }}>
+        <Input
+          {...props}
+          placeholder={props.placeholder || '请输入内容'}
+          style={props.style}
+        />
+      </div>
     );
   },
   renderPropertyPanel: (props, form) => {

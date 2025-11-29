@@ -22,15 +22,17 @@ export const ImageComponent: ComponentConfig = {
       objectFit: 'contain',
     },
   },
-  render: (props) => {
+  render: (props, isDesignMode = false) => {
     return (
-      <Image
-        {...props}
-        src={props.src || 'https://via.placeholder.com/400x300'}
-        alt={props.alt || '图片'}
-        preview={props.preview !== false}
-        style={props.style}
-      />
+      <div style={{ pointerEvents: isDesignMode ? 'none' : 'auto', width: '100%', height: '100%' }}>
+        <Image
+          {...props}
+          src={props.src || 'https://via.placeholder.com/400x300'}
+          alt={props.alt || '图片'}
+          preview={isDesignMode ? false : (props.preview !== false)}
+          style={props.style}
+        />
+      </div>
     );
   },
   renderPropertyPanel: (props, form) => {

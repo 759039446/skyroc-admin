@@ -21,11 +21,13 @@ export const TitleComponent: ComponentConfig = {
     level: 4,
     style: {},
   },
-  render: (props) => {
+  render: (props, isDesignMode = false) => {
     return (
-      <Title level={props.level || 4} style={props.style}>
-        {props.text || '标题'}
-      </Title>
+      <div style={{ pointerEvents: isDesignMode ? 'none' : 'auto' }}>
+        <Title level={props.level || 4} style={props.style}>
+          {props.text || '标题'}
+        </Title>
+      </div>
     );
   },
   renderPropertyPanel: (props, form) => {

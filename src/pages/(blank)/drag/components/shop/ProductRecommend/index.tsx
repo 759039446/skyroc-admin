@@ -1,6 +1,6 @@
 import { Form, Input, InputNumber } from 'antd';
 import { StarFilled } from '@ant-design/icons';
-import type { ComponentConfig } from '../types';
+import type { ComponentConfig } from '../../types';
 
 export const ProductRecommendComponent: ComponentConfig = {
   id: 'product-recommend',
@@ -27,13 +27,14 @@ export const ProductRecommendComponent: ComponentConfig = {
     priceColor: '#e1251b',
     backgroundColor: '#fff',
   },
-  render: (props) => {
+  render: (props, isDesignMode = false) => {
     return (
       <div style={{
         width: '100%',
         height: '100%',
         backgroundColor: props.backgroundColor,
         padding: '20px',
+        pointerEvents: isDesignMode ? 'none' : 'auto',
       }}>
         <h3 style={{
           margin: '0 0 20px 0',

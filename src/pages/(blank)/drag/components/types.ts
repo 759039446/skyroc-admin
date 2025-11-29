@@ -28,7 +28,7 @@ export interface ComponentConfig {
   // 组件在画布上的默认高度样式（可选，例如 '100%', '200px', 'auto'）
   defaultHeight?: string;
   // 渲染组件
-  render: (props: Record<string, any>) => React.ReactNode;
+  render: (props: Record<string, any>, isDesignMode?: boolean) => React.ReactNode;
   // 渲染属性配置表单（可选）
   renderPropertyPanel?: (props: Record<string, any>, form: FormInstance) => React.ReactNode;
 }

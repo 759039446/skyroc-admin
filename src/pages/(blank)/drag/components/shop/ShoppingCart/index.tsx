@@ -1,6 +1,6 @@
 import { Form, Input, InputNumber, Switch } from 'antd';
 import { ShoppingCartOutlined, ShoppingOutlined } from '@ant-design/icons';
-import type { ComponentConfig } from '../types';
+import type { ComponentConfig } from '../../types';
 
 export const ShoppingCartComponent: ComponentConfig = {
   id: 'shopping-cart',
@@ -21,7 +21,7 @@ export const ShoppingCartComponent: ComponentConfig = {
     batchPurchaseText: '批量采购',
     cartColor: '#e1251b',
   },
-  render: (props) => {
+  render: (props, isDesignMode = false) => {
     return (
       <div style={{
         width: '100%',
@@ -30,6 +30,7 @@ export const ShoppingCartComponent: ComponentConfig = {
         alignItems: 'center',
         justifyContent: 'flex-end',
         gap: '20px',
+        pointerEvents: isDesignMode ? 'none' : 'auto',
       }}>
         <div style={{
           position: 'relative',

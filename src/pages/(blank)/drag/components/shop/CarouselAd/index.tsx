@@ -1,6 +1,6 @@
 import { Form, Input, InputNumber } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-import type { ComponentConfig } from '../types';
+import type { ComponentConfig } from '../../types';
 
 export const CarouselAdComponent: ComponentConfig = {
   id: 'carousel-ad',
@@ -24,7 +24,7 @@ export const CarouselAdComponent: ComponentConfig = {
     autoPlay: true,
     interval: 3000,
   },
-  render: (props) => {
+  render: (props, isDesignMode = false) => {
     return (
       <div style={{
         width: '100%',
@@ -33,6 +33,7 @@ export const CarouselAdComponent: ComponentConfig = {
         overflow: 'hidden',
         backgroundColor: '#f5f5f5',
         borderRadius: '8px',
+        pointerEvents: isDesignMode ? 'none' : 'auto',
       }}>
         {/* 简化展示：只显示第一张 */}
         {props.slides && props.slides.length > 0 && (

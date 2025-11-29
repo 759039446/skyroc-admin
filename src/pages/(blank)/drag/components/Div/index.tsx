@@ -23,7 +23,7 @@ export const DivComponent: ComponentConfig = {
       borderRadius: 4,
     },
   },
-  render: (props) => {
+  render: (props, isDesignMode = false) => {
     return (
       <div
         style={{
@@ -37,6 +37,7 @@ export const DivComponent: ComponentConfig = {
           backgroundColor: props.style?.backgroundColor || 'transparent',
           border: `${props.style?.borderWidth || 1}px dashed ${props.style?.borderColor || '#d9d9d9'}`,
           borderRadius: `${props.style?.borderRadius || 4}px`,
+          pointerEvents: isDesignMode ? 'none' : 'auto',
           ...props.style,
         }}
       >

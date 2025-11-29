@@ -1,6 +1,6 @@
 import { Form, Input } from 'antd';
 import { CrownOutlined, TeamOutlined, ShopOutlined, AppstoreOutlined, FileTextOutlined, PrinterOutlined } from '@ant-design/icons';
-import type { ComponentConfig } from '../types';
+import type { ComponentConfig } from '../../types';
 
 export const EnterpriseRightsComponent: ComponentConfig = {
   id: 'enterprise-rights',
@@ -28,7 +28,7 @@ export const EnterpriseRightsComponent: ComponentConfig = {
     borderColor: '#e0e0e0',
     iconColor: '#e1251b',
   },
-  render: (props) => {
+  render: (props, isDesignMode = false) => {
     const getIcon = (iconName: string) => {
       const iconMap: Record<string, React.ReactNode> = {
         crown: <CrownOutlined />,
@@ -49,6 +49,7 @@ export const EnterpriseRightsComponent: ComponentConfig = {
         border: `1px solid ${props.borderColor}`,
         borderRadius: '8px',
         padding: '20px',
+        pointerEvents: isDesignMode ? 'none' : 'auto',
       }}>
         <h3 style={{
           margin: '0 0 20px 0',

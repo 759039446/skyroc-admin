@@ -170,7 +170,7 @@ const Canvas: React.FC<CanvasProps> = ({
                       </div>
                       {/* 组件内容区域 */}
                       <div className="drag-item-content">
-                        {getComponentConfig(component.type)?.render(component.props)}
+                        {getComponentConfig(component.type)?.render(component.props, true)}
                       </div>
                     </div>
                   ))}

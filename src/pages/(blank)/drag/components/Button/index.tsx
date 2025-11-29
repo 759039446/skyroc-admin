@@ -23,11 +23,13 @@ export const ButtonComponent: ComponentConfig = {
       display: 'block',
     },
   },
-  render: (props) => {
+  render: (props, isDesignMode = false) => {
     return (
-      <Button {...props} style={props.style}>
-        {props.text || '按钮'}
-      </Button>
+      <div style={{ pointerEvents: isDesignMode ? 'none' : 'auto', width: '100%', height: '100%' }}>
+        <Button {...props} style={props.style}>
+          {props.text || '按钮'}
+        </Button>
+      </div>
     );
   },
   renderPropertyPanel: (props, form) => {

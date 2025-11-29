@@ -1,5 +1,5 @@
 import { Form, Input, Switch } from 'antd';
-import type { ComponentConfig } from '../types';
+import type { ComponentConfig } from '../../types';
 
 export const TopNavBarComponent: ComponentConfig = {
   id: 'top-nav-bar',
@@ -31,7 +31,7 @@ export const TopNavBarComponent: ComponentConfig = {
     textColor: '#666',
     linkColor: '#f10215',
   },
-  render: (props) => {
+  render: (props, isDesignMode = false) => {
     return (
       <div style={{
         width: '100%',
@@ -43,6 +43,7 @@ export const TopNavBarComponent: ComponentConfig = {
         justifyContent: 'space-between',
         fontSize: '12px',
         color: props.textColor,
+        pointerEvents: isDesignMode ? 'none' : 'auto',
       }}>
         <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
           <span>{props.siteName}</span>

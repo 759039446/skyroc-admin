@@ -18,23 +18,25 @@ export const CardComponent: ComponentConfig = {
     title: '卡片标题',
     content: '卡片内容',
   },
-  render: (props) => {
+  render: (props, isDesignMode = false) => {
     return (
-      <Card
-        {...props}
-        title={props.title || '卡片标题'}
-        style={props.style}
-        styles={{
-          body: {
-            height: 'calc(100% - 57px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          },
-        }}
-      >
-        {props.content || '卡片内容'}
-      </Card>
+      <div style={{ pointerEvents: isDesignMode ? 'none' : 'auto', width: '100%', height: '100%' }}>
+        <Card
+          {...props}
+          title={props.title || '卡片标题'}
+          style={props.style}
+          styles={{
+            body: {
+              height: 'calc(100% - 57px)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            },
+          }}
+        >
+          {props.content || '卡片内容'}
+        </Card>
+      </div>
     );
   },
   renderPropertyPanel: (props, form) => {

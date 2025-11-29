@@ -1,6 +1,6 @@
 import { Form, Input, Switch } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
-import type { ComponentConfig } from '../types';
+import type { ComponentConfig } from '../../types';
 
 export const MainNavMenuComponent: ComponentConfig = {
   id: 'main-nav-menu',
@@ -30,7 +30,7 @@ export const MainNavMenuComponent: ComponentConfig = {
     hoverColor: '#e1251b',
     borderColor: '#e0e0e0',
   },
-  render: (props) => {
+  render: (props, isDesignMode = false) => {
     return (
       <div style={{
         width: '100%',
@@ -38,6 +38,7 @@ export const MainNavMenuComponent: ComponentConfig = {
         backgroundColor: props.backgroundColor,
         border: `1px solid ${props.borderColor}`,
         borderRadius: '4px',
+        pointerEvents: isDesignMode ? 'none' : 'auto',
       }}>
         <div style={{
           display: 'flex',
