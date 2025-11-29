@@ -30,7 +30,20 @@
   - 其他组件：📄 FileTextOutlined
 - **点击切换**：点击左侧分类图标，右侧即刻显示该分类下的所有组件
 
-### 2. 画布工具栏改造
+### 2. 浮动工具栏
+- **新增功能**：画布右下角固定工具栏，提供快捷操作
+- **固定位置**：工具栏固定在右下角（距离右侧和底部各 20px）
+- **功能按钮**：
+  - 导入：导入 DSL JSON 文件到画布
+  - 导出：导出当前画布组件为 JSON 文件
+  - 编辑：打开 JSON 编辑器弹窗
+- **JSON 编辑器**：
+  - 实时编辑画布组件的 JSON 数据
+  - 支持格式化功能
+  - 编辑后直接应用到画布
+  - 实时语法错误提示
+
+### 3. 画布工具栏改造
 在画布卡片的标题区域新增两个图标按钮：
 
 #### 组件库按钮 (📦)
@@ -60,10 +73,15 @@
 
 ## 文件修改清单
 
-### 核心组件文件
+### 组件文件
 1. **src/pages/(blank)/drag/index.tsx**
    - 移除 `leftPanelCollapsed` 状态
    - 新增 `libraryVisible` 状态
+   - 新增 `jsonEditorVisible` 状态
+   - 新增导入 JSON 功能 `handleImportJson`
+   - 新增导出 JSON 功能 `handleExportJson`
+   - 新增应用 JSON 功能 `handleApplyJson`
+   - 集成 FloatingToolbar 和 JsonEditor 组件
    - 更新 ComponentLibrary 和 Canvas 组件的 props
 
 2. **src/pages/(blank)/drag/modules/edit/component-library/index.tsx**
@@ -118,14 +136,40 @@
      - 空画布悬停边框：`var(--ant-color-primary)`
      - 空画布悬停背景：`var(--ant-color-primary-bg)`
 
+### 新增组件
+7. **src/pages/(blank)/drag/modules/edit/toolbar/index.tsx**
+   - 浮动工具栏组件
+   - 固定在画布右下角
+   - 导入、导出、编辑三个功能按钮
+   - 简洁的文件选择和导入导出逻辑
+
+8. **src/pages/(blank)/drag/modules/edit/toolbar/styles.css**
+   - 浮动工具栏样式
+   - 使用 fixed 定位固定在右下角
+   - 按钮悬停效果
+   - 使用 CSS 变量实现主题色
+
+9. **src/pages/(blank)/drag/modules/edit/json-editor/index.tsx**
+   - JSON 编辑器弹窗组件
+   - 实时 JSON 编辑
+   - 格式化功能
+   - 错误提示
+   - 应用功能
+
+10. **src/pages/(blank)/drag/modules/edit/json-editor/styles.css**
+    - JSON 编辑器样式
+    - 文本域样式（代码风格）
+    - 错误提示样式
+    - 自定义滚动条
+
 ### 新增文档
-7. **src/pages/(blank)/drag/THEME_COLORS.md**
-   - 主题色规范文档
-   - CSS 变量使用指南和示例
-   - 定义完整的色彩体系
-   - 说明各组件状态的颜色使用
-   - 提供设计原则和注意事项
-   - 强调使用 CSS 变量实现主题色统一
+11. **src/pages/(blank)/drag/THEME_COLORS.md**
+    - 主题色规范文档
+    - CSS 变量使用指南和示例
+    - 定义完整的色彩体系
+    - 说明各组件状态的颜色使用
+    - 提供设计原则和注意事项
+    - 强调使用 CSS 变量实现主题色统一
 
 ## 功能特性
 
@@ -138,6 +182,20 @@
   - `--ant-color-primary`：主色
   - `--ant-color-primary-bg-hover`：主色浅色背景（悬停）
   - `--ant-color-primary-bg`：主色极浅背景
+
+### 浮动工具栏特性
+- **固定位置**：工具栏固定在画布右下角（right: 20px, bottom: 20px）
+- **始终可见**：位置固定，不随页面滚动，始终可访问
+- **简洁设计**：竖向排列三个功能按钮，占用空间小
+- **JSON 导入导出**：
+  - 导入：支持选择 JSON 文件导入画布组件
+  - 导出：一键导出当前画布所有组件为 JSON 文件
+  - 文件命名：导出文件自动带时间戳（canvas-timestamp.json）
+- **JSON 编辑器**：
+  - 实时编辑：直接编辑画布组件的 JSON 数据
+  - 格式化：一键格式化 JSON 便于阅读
+  - 语法检查：实时检测 JSON 语法错误并提示
+  - 即时应用：编辑后直接应用到画布，无需刷新
 
 ### 侧边面板特性
 - **固定定位**：使用 `position: fixed` 实现固定在视口左侧
@@ -187,3 +245,7 @@
 9. **清晰的状态指示**：按钮高亮状态让用户清楚知道当前打开了哪些面板
 10. **灵活的布局**：侧边面板设计让界面更加灵活和现代化
 11. **无阻挡拖拽**：组件库打开时不会阻止用户操作画布，可以边看组件库边拖拽
+12. **固定工具栏**：工具栏固定在右下角，始终可见，快速访问常用功能
+13. **数据导入导出**：方便的 JSON 导入导出功能，快速保存和加载画布配置
+14. **可视化编辑 JSON**：JSON 编辑器让高级用户可以直接编辑数据，提高效率
+15. **实时反馈**：JSON 编辑器实时检测语法错误，避免无效操作

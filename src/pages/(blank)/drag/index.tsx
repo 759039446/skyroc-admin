@@ -1,10 +1,12 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Form } from 'antd';
+import { Form, message } from 'antd';
 import './styles.css';
 import { getComponentConfig, type CanvasComponent } from './components';
 import Preview from './modules/preview/preview';
 import { ComponentLibrary, Canvas, PropertyPanel } from './modules/edit';
+import FloatingToolbar from './modules/edit/toolbar';
+import JsonEditor from './modules/edit/json-editor';
 
 // 网格配置项
 const GRID_CONFIG = {
@@ -28,6 +30,9 @@ const Drag = () => {
   
   // 属性配置抽屉状态
   const [drawerVisible, setDrawerVisible] = useState(false);
+  
+  // JSON 编辑器状态
+  const [jsonEditorVisible, setJsonEditorVisible] = useState(false);
 
   // 历史记录管理
   const [history, setHistory] = useState<CanvasComponent[][]>([[]]); // 历史记录栈
@@ -201,6 +206,55 @@ const Drag = () => {
     e.dataTransfer.setData('componentType', componentType);
   };
 
+  // 导入 JSON
+  const handleImportJson = useCallback((file: File) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const json = JSON.parse(e.target?.result as string);
+        if (Array.isArray(json)) {
+          setCanvasComponents(json);
+          saveHistory(json);
+          message.success(`成功导入 ${json.length} 个组件`);
+        } else {
+          message.error('JSON 格式错误：必须是组件数组');
+        }
+      } catch (err) {
+        message.error('JSON 解析失败：' + (err as Error).message);
+      }
+    };
+    reader.readAsText(file);
+  }, [saveHistory]);
+
+  // 导出 JSON
+  const handleExportJson = useCallback(() => {
+    try {
+      const json = JSON.stringify(canvasComponents, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `canvas-${Date.now()}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      message.success('JSON 已导出');
+    } catch (err) {
+      message.error('导出失败：' + (err as Error).message);
+    }
+  }, [canvasComponents]);
+
+  // 应用 JSON 编辑器的修改
+  const handleApplyJson = useCallback((json: any) => {
+    if (Array.isArray(json)) {
+      setCanvasComponents(json);
+      saveHistory(json);
+    } else {
+      message.error('JSON 格式错误：必须是组件数组');
+    }
+  }, [saveHistory]);
+
   // 键盘快捷键监听
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -279,6 +333,21 @@ const Drag = () => {
           cols: GRID_CONFIG.cols,
           rowHeight: GRID_CONFIG.rowHeight,
         }}
+      />
+
+      {/* 浮动工具栏 */}
+      <FloatingToolbar
+        onImport={handleImportJson}
+        onExport={handleExportJson}
+        onEdit={() => setJsonEditorVisible(true)}
+      />
+
+      {/* JSON 编辑器 */}
+      <JsonEditor
+        visible={jsonEditorVisible}
+        value={canvasComponents}
+        onClose={() => setJsonEditorVisible(false)}
+        onApply={handleApplyJson}
       />
     </div>
   );

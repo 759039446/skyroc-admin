@@ -1,0 +1,65 @@
+/* 浮动工具栏 */
+.drag-floating-toolbar {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 999;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  user-select: none;
+  transition: box-shadow 0.2s ease;
+}
+
+.drag-floating-toolbar:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* 工具栏头部 */
+.drag-toolbar-header {
+  padding: 8px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  background: #fafafa;
+  border-radius: 8px 8px 0 0;
+}
+
+.drag-toolbar-title {
+  font-size: 12px;
+  font-weight: 500;
+  color: #595959;
+}
+
+/* 工具栏操作按钮区域 */
+.drag-toolbar-actions {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  gap: 8px;
+}
+
+/* 工具栏操作按钮 */
+.drag-toolbar-action {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 18px;
+  color: #595959;
+}
+
+.drag-toolbar-action:hover {
+  background: var(--ant-color-primary-bg-hover, #e6f0ff);
+  border-color: var(--ant-color-primary, #1890ff);
+  color: var(--ant-color-primary, #1890ff);
+  transform: scale(1.05);
+}
+
+.drag-toolbar-action:active {
+  transform: scale(0.95);
+}

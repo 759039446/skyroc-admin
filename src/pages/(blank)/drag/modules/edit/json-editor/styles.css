@@ -1,0 +1,67 @@
+/* JSON 编辑器容器 */
+.drag-json-editor {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* JSON 文本域 */
+.drag-json-textarea {
+  flex: 1;
+  width: 100%;
+  padding: 12px;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  resize: none;
+  background: #fafafa;
+  color: #262626;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.drag-json-textarea:focus {
+  border-color: var(--ant-color-primary, #1890ff);
+  background: #ffffff;
+  box-shadow: 0 0 0 2px var(--ant-color-primary-bg, rgba(24, 144, 255, 0.1));
+}
+
+.drag-json-textarea::placeholder {
+  color: #bfbfbf;
+}
+
+/* 错误提示 */
+.drag-json-error {
+  padding: 8px 12px;
+  background: #fff2f0;
+  border: 1px solid #ffccc7;
+  border-radius: 4px;
+  color: #ff4d4f;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* 自定义滚动条 */
+.drag-json-textarea::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.drag-json-textarea::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
+.drag-json-textarea::-webkit-scrollbar-thumb {
+  background: #bfbfbf;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.drag-json-textarea::-webkit-scrollbar-thumb:hover {
+  background: #999999;
+}
