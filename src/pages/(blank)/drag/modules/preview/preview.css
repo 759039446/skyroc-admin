@@ -7,7 +7,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 24px;
+  padding: 0;
   background: #f0f2f5;
   min-height: 400px;
 }
@@ -17,9 +17,9 @@
   position: relative;
   min-height: 400px;
   background: #ffffff;
-  border-radius: 4px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-  padding: 20px;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
 }
 
 /* 空状态提示 */
@@ -43,9 +43,9 @@
 /* 预览网格项 */
 .preview-grid-item {
   position: relative;
-  background: #ffffff;
-  border-radius: 8px;
-  border: 2px solid #e8e8e8;
+  background: transparent;
+  border-radius: 0;
+  border: none;
   overflow: visible;
   pointer-events: none;
   user-select: none;
@@ -57,7 +57,7 @@
   height: 100%;
   box-sizing: border-box;
   overflow: hidden;
-  border-radius: 6px;
+  border-radius: 0;
   pointer-events: auto;
 }
 

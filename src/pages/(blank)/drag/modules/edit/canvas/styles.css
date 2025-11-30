@@ -25,7 +25,7 @@
   width: 100%;
   height: 100%;
   background: #f0f2f5;
-  padding: 24px;
+  padding: 0;
   overflow-y: auto;
   overflow-x: hidden;
   display: flex;
@@ -38,9 +38,11 @@
   position: relative;
   min-height: calc(100vh - 250px);
   background: #ffffff;
-  border-radius: 4px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-  padding: 30px 20px 20px 20px;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  /* 网格背景通过内联样式动态设置，根据 gridConfig.cols 和 gridConfig.rowHeight 计算 */
+  /* backgroundImage 和 backgroundSize 在 index.tsx 中设置 */
 }
 
 /* 空画布提示 */

@@ -124,7 +124,14 @@ const Canvas: React.FC<CanvasProps> = ({
             className="drag-canvas"
             onDrop={onDrop}
             onDragOver={onDragOver}
-            style={{ width: `${gridConfig.width}px` }}
+            style={{ 
+              width: `${gridConfig.width}px`,
+              backgroundImage: `
+                linear-gradient(to right, #e8e8e8 1px, transparent 1px),
+                linear-gradient(to bottom, #e8e8e8 1px, transparent 1px)
+              `,
+              backgroundSize: `${gridConfig.width / gridConfig.cols}px ${gridConfig.rowHeight}px`,
+            }}
           >
             {components.length === 0 ? (
               <div className="drag-empty-canvas">

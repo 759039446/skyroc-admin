@@ -10,7 +10,7 @@ import JsonEditor from './modules/edit/json-editor';
 
 // 网格配置项
 const GRID_CONFIG = {
-  cols: 48,           // 网格列数
+  cols: 96,           // 网格列数
   rowHeight: 5,       // 每行高度（px）
   width: 1200,        // 画布宽度（px，可配置）
 };

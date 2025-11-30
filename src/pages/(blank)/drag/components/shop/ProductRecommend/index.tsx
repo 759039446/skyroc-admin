@@ -11,7 +11,7 @@ export const ProductRecommendComponent: ComponentConfig = {
   order: 9,
   defaultSize: {
     widthRatio: 1,
-    heightRows: 25,
+    heightRows: 30,
   },
   defaultWidth: '100%',
   defaultHeight: '100%',
@@ -26,6 +26,7 @@ export const ProductRecommendComponent: ComponentConfig = {
     columns: 4,
     priceColor: '#e1251b',
     backgroundColor: '#fff',
+    borderColor: '#e0e0e0',
   },
   render: (props, isDesignMode = false) => {
     return (
@@ -34,6 +35,8 @@ export const ProductRecommendComponent: ComponentConfig = {
         height: '100%',
         backgroundColor: props.backgroundColor,
         padding: '20px',
+        border: `1px solid ${props.borderColor || '#e0e0e0'}`,
+        borderRadius: '8px',
         pointerEvents: isDesignMode ? 'none' : 'auto',
       }}>
         <h3 style={{
@@ -169,6 +172,12 @@ export const ProductRecommendComponent: ComponentConfig = {
           />
         </Form.Item>
         <Form.Item label="价格颜色" name="priceColor">
+          <Input type="color" />
+        </Form.Item>
+        <Form.Item label="边框颜色" name="borderColor">
+          <Input type="color" />
+        </Form.Item>
+        <Form.Item label="背景颜色" name="backgroundColor">
           <Input type="color" />
         </Form.Item>
       </>
